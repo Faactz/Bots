@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, ChannelType } = require('discord.js');
 require('dotenv').config();
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
@@ -13,13 +13,13 @@ client.once('ready', async () => {
     for (const categoryId of categoryIds) {
       try {
         const category = await client.channels.fetch(categoryId.trim());
-        if (!category || category.type !== 4) { // 4 = GUILD_CATEGORY
+        if (!category || category.type !== ChannelType.GuildCategory) {
           console.error(`❌ Category ${categoryId} not found or not a category`);
           continue;
         }
 
-        category.children.forEach(channel => {
-          if (channel.isText()) {
+        category.children.cache.forEach(channel => {
+          if (channel.isTextBased()) {
             channel.send(`<@&${roleId}>`).catch(console.error);
           }
         });
