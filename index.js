@@ -2,15 +2,15 @@ const { Client, GatewayIntentBits, ChannelType } = require('discord.js');
 require('dotenv').config();
 const http = require('http');
 
-const PORT = process.env.PORT || 3000; // Render sets this automatically
+const PORT = process.env.PORT || 10000; // Render default port
 
-// Start HTTP server immediately to bind required port
+// HTTP server bound explicitly to 0.0.0.0 as required by Render
 const server = http.createServer((req, res) => {
   res.writeHead(200);
   res.end('Bot is running');
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ HTTP server listening on port ${PORT}`);
 });
 
