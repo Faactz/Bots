@@ -24,9 +24,8 @@ client.once('ready', () => {
           continue;
         }
 
-        // Use .children.cache to iterate channels properly
-        category.children.cache.forEach(channel => {
-          if (channel.isText()) {
+        category.children.forEach(channel => {
+          if (channel.isTextBased()) {
             channel.send(`<@&${roleId}>`).catch(console.error);
           }
         });
