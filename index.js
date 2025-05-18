@@ -12,7 +12,8 @@ client.once('ready', () => {
     channelIDs.forEach(id => {
       const channel = client.channels.cache.get(id.trim());
       if (channel) {
-        channel.send('Ping!');
+        const roleId = "1233778160399814726";  // Replace with actual role ID as string
+        channel.send(`<@&${roleId}>`);
       } else {
         console.error(`❌ Channel ${id.trim()} not found`);
       }
