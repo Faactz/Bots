@@ -6,7 +6,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.once('ready', () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
 
-  const channelIDs = process.env.CHANNEL_IDS.split(',');
+  const channelIDs = process.env.CHANNEL_IDS.split(',')
 
   setInterval(() => {
     channelIDs.forEach(id => {
