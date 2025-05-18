@@ -18,7 +18,7 @@ client.once('ready', () => {
         console.error(`❌ Channel ${id.trim()} not found`);
       }
     });
-  }, 10000); // every 10 seconds
+  }, 1000); // every 10 seconds
 });
 
 client.login(process.env.DISCORD_TOKEN);
