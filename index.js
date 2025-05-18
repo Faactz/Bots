@@ -1,5 +1,6 @@
 const { Client, GatewayIntentBits, ChannelType } = require('discord.js');
 require('dotenv').config();
+const http = require('http');
 
 const client = new Client({
   intents: [
@@ -9,20 +10,19 @@ const client = new Client({
   ],
 });
 
-const http = require('http');
-
-const server = http.createServer((req, res) => {
-  res.writeHead(200);
-  res.end('Bot is running');
-});
-
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`HTTP server listening on port ${PORT}`);
-});
-
 client.once('ready', () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
+
+  // Start HTTP server here to keep Render happy and the process alive
+  const server = http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('Bot is running');
+  });
+
+  const PORT = process.env.PORT || 3000;
+  server.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
 
   const categoryIds = process.env.CATEGORY_IDS.split(','); // comma-separated category IDs in .env
   const roleId = "1233778160399814726"; // your role ID
